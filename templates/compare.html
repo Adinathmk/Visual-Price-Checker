@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Comparison Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}"> 
+</head>
+<body>
+    <!-- Logo -->
+    <a href="{{ url_for('index') }}" class="logo">
+        <img src="{{ url_for('static', filename='img/logodo.svg') }}" alt="logo" />
+    </a>
+
+    <!-- Loader -->
+    <div id="loader" class="loader"></div>
+
+    <!-- Comparison Result -->
+    <div id="dataContainer">
+        <div class="container">
+            <div class="font_compare">Comparison Results</div>
+            {% for i in range(urls|length) %}
+                <div class="box">
+                    <div><strong>Price:</strong> {{ prices[i] }}</div>
+                    <a href="{{ urls[i] }}" class="button" target="_blank">Go to URL</a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- JS -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const loader = document.getElementById('loader');
+            loader.style.display = 'block';
+
+            fetch('/compare')
+                .then(response => response.json())
+                .then(data => {
+                    loader.style.display = 'none';
+                    if (data.error) {
+                        console.error('Error fetching data:', data.error);
+                    } else {
+                        console.log('Data received:', data);
+                    }
+                })
+                .catch(error => {
+                    loader.style.display = 'none';
+                    console.error('Error fetching data:', error);
+                });
+        });
+    </script>
+</body>
+</html>

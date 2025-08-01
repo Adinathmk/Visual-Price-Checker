@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+  <title>Visual Price Checker</title>
+  <meta name="description" content="Visual Price Checker helps you find the best deals from e-commerce platforms using image search and price comparison.">
+  <meta name="author" content="Adinath M K and team">
+  
+  <!-- SEO -->
+  <meta property="og:title" content="Visual Price Checker">
+  <meta property="og:description" content="Find best deals with image-based price comparison using AI.">
+  <meta property="og:url" content="https://price-comparison-site-3.onrender.com">
+  <meta property="twitter:card" content="summary_large_image">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon" href="{{ url_for('static', filename='img/thumbnail.jpg') }}">
+  <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico') }}">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/min/dropzone.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+
+  <!-- JS Libraries -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<body>
+
+  <!-- Upload Modal -->
+  <div class="modal upload-modal">
+    <button type="button" class="modal-close upload-modal-toggle"><i class="icon" data-feather="x"></i><span class="hide-mobile">ESC</span></button>
+    <div class="modal-content">
+      <a href="/" class="logo"><img src="{{ url_for('static', filename='img/logodo.svg') }}" alt="logo" /></a>
+      <form action="/upload" class="dropzone" id="my-dropzone" method="POST" enctype="multipart/form-data"></form>
+    </div>
+  </div>
+
+  <!-- About Modal -->
+  <div class="modal about-modal">
+    <button type="button" class="modal-close about-modal-toggle"><i class="icon" data-feather="x"></i><span class="hide-mobile">ESC</span></button>
+    <div class="modal-content">
+      <a href="/" class="logo"><img src="{{ url_for('static', filename='img/logodo.svg') }}" alt="logo" /></a>
+      <div class="about-font">MEMBERS</div>
+      <div class="about-container">
+        <div class="about-style"><div class="about-font1">ADINATH</div></div>
+        <div class="about-style"><div class="about-font1">AMAN</div></div>
+        <div class="about-style"><div class="about-font1">ARSHAD</div></div>
+        <div class="about-style"><div class="about-font1">ANUVINDA</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="content">
+    <a href="/" class="logo"><img src="{{ url_for('static', filename='img/logodo.png') }}" alt="logo" /></a>
+    <div class="hero">
+      <h1 class="title">Visual Price Checker</h1>
+      <h1 class="title shift clip">
+        <span class="word-shift">
+          <b class="is-visible">Helps U Find The Best Deals.&nbsp;</b>
+          <b>Find the best deals without the hassle.</b>
+          <b>Shop smart, save smarter.</b>
+          <b>Unbeatable deals just a click away.</b>
+          <b>Compare, click, Save.. It's that simple.</b>
+        </span>
+      </h1>
+      <button class="button upload-modal-toggle">UPLOAD</button>
+      <p class="subtitle">Powered By Cloud Vision API <img src="{{ url_for('static', filename='img/logo-google.png') }}" alt="google" /></p>
+    </div>
+
+    <div class="screen-wrapper">
+      <img src="{{ url_for('static', filename='img/cart_image.jpg') }}" class="screen" alt="screen" />
+    </div>
+
+    <section class="section section-features">
+      <h2 class="title">Compare. Save. Enjoy.</h2>
+      <div class="features">
+        <div class="row donts">
+          {% for feature in ['Efficiency', 'Comprehensive', 'Accuracy', 'Simplicity', 'Versatility', 'Accessibility', 'Reliability', 'Innovation'] %}
+          <div class="feature"><i class="icon" data-feather="check"></i> {{ feature }}</div>
+          {% endfor %}
+        </div>
+        <div class="row dos">
+          {% for feature in ['Shortcuts', 'Accessibility', 'Dark mode', 'Lightning fast', 'Beautiful imagery', 'Simple UI', 'Interactive', 'Themes'] %}
+          <div class="feature"><i class="icon" data-feather="check"></i> {{ feature }}</div>
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+
+    <section class="section cta">
+      <div class="cta-content">
+        <h1 class="title">Visual Price Checker</h1>
+        <a href="#" class="button white about-modal-toggle">About</a>
+        <p class="subtitle">Thank you for joining us. <img src="{{ url_for('static', filename='img/logo-google.svg') }}" alt="google" /></p>
+      </div>
+      <div class="zero-slider">
+        <div class="slide"><img src="{{ url_for('static', filename='img/wallpaper.jpg') }}" alt="inboxzero" /></div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <p>&copy; MINI PROJECT</p>
+    </footer>
+  </div>
+
+  <!-- Scripts -->
+  <script src="{{ url_for('static', filename='js/scripts.min.js') }}"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/min/dropzone.min.js"></script>
+  <script src="https://unpkg.com/feather-icons"></script>
+  <script>
+    $(document).ready(function () {
+      function toggleModal(modalClass) {
+        $(modalClass).toggleClass('modal-show');
+        $('.content').toggleClass('content-blurred');
+        $('body').toggleClass('no-scroll');
+      }
+
+      $('.upload-modal-toggle').click(function (e) {
+        e.preventDefault();
+        toggleModal('.upload-modal');
+      });
+
+      $('.about-modal-toggle').click(function (e) {
+        e.preventDefault();
+        toggleModal('.about-modal');
+      });
+
+      $(document).keyup(function (e) {
+        if (e.key === "Escape") {
+          $('.modal').removeClass('modal-show');
+          $('.content').removeClass('content-blurred');
+          $('body').removeClass('no-scroll');
+        }
+      });
+
+      feather.replace();
+    });
+  </script>
+</body>
+</html>
